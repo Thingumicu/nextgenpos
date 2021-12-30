@@ -2,5 +2,6 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <t:pageTemplate pageTitle="About">
-    <h1>About the Nextgen POS experience</h1>
+    <h1>About the NextGen POS experience</h1>
+    <h1>About the NextGen POS experience</h1>
 </t:pageTemplate>
