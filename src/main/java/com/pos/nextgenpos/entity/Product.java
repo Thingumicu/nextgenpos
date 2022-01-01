@@ -22,13 +22,29 @@ import javax.persistence.Table;
 @Table(name = "PRODUCTS")
 public class Product implements Serializable{
 
+    private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     private String name;
     
-    private String price;
+    private Double price;
+
+    public Product(Integer id, String name, Double price) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+    }
+    
+    public static long getSerialVersionUID(){
+        return serialVersionUID;
+    }
+
+    public Product() {
+    }
+    
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_KEY")
@@ -46,11 +62,11 @@ public class Product implements Serializable{
         this.name = name;
     }
 
-    public String getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -58,8 +74,16 @@ public class Product implements Serializable{
         return user;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public void setUser(User user) {
         this.user = user;
     }
     
+    @Override
+    public String toString() {
+        return "com.pos.nextgenpos.entity.Product[ id=" + id + " ]";
+    }
 }

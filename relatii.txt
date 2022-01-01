@@ -1,0 +1,11 @@
+one user
+many products
+
+one manager
+many users
+many products
+
+one product
+name
+price
+quantity

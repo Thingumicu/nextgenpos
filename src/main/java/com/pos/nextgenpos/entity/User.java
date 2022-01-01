@@ -69,4 +69,32 @@ public class User implements Serializable{
     public Integer getId() {
         return id;
     }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+    
+    @Override
+    public int hashCode(){
+        int hash=0;
+        hash+=(id!=null ? id.hashCode():0);
+        return hash;
+    }
+    
+    @Override
+    public boolean equals(Object object){
+        if(!(object instanceof User)){
+            return false;
+        }
+        User otherUser = (User) object;
+        if((this.id==null && otherUser.id!=null) || (this.id != null && !this.id.equals(otherUser.id))){
+            return false;
+        }
+        return true;
+    }
+    
+    @Override
+    public String toString(){
+        return "com.pos.nextgenpos.entity.User[ id=" + id + "]";
+    }
 }
