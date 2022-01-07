@@ -3,11 +3,15 @@
   <!-- Define Persistence Unit -->
   <persistence-unit name="my_persistence_unit" transaction-type="JTA">
     <jta-data-source>jdbc/sample</jta-data-source>
+    <class>com.pos.nextgenpos.common.ProductDetails</class>
+    <class>com.pos.nextgenpos.common.UserDetails</class>
+    <class>com.pos.nextgenpos.entity.Product</class>
+    <class>com.pos.nextgenpos.entity.User</class>
     <properties>
-        <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/NextGenPOS"/>
-        <property name="javax.persistence.jdbc.user" value="NextGenPOSUser"/>
-        <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
-        <property name="javax.persistence.jdbc.password" value="NextGenPOSUser"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/NextGenPOS"/>
+      <property name="javax.persistence.jdbc.user" value="NextGenPOSUser"/>
+      <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
+      <property name="javax.persistence.jdbc.password" value="NextGenPOSUser"/>
     </properties>
   </persistence-unit>
 </persistence>

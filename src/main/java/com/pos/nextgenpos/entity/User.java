@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -19,20 +20,28 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "USERS")
-public class User implements Serializable{
+@XmlRootElement
+public class User implements Serializable {
+
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    
+
     private String username;
-    
+
     private String password;
-    
+
     private String position;
-    @OneToMany(mappedBy = "user")
-    private Collection<Product> products;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getUsername() {
         return username;
@@ -58,43 +67,28 @@ public class User implements Serializable{
         this.position = position;
     }
 
-    public Collection<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(Collection<Product> products) {
-        this.products = products;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-    
     @Override
-    public int hashCode(){
-        int hash=0;
-        hash+=(id!=null ? id.hashCode():0);
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
-    
+
     @Override
-    public boolean equals(Object object){
-        if(!(object instanceof User)){
+    public boolean equals(Object object) {
+        if (!(object instanceof User)) {
             return false;
         }
         User otherUser = (User) object;
-        if((this.id==null && otherUser.id!=null) || (this.id != null && !this.id.equals(otherUser.id))){
+        if ((this.id == null && otherUser.id != null) || (this.id != null && !this.id.equals(otherUser.id))) {
             return false;
         }
         return true;
     }
-    
+
     @Override
-    public String toString(){
-        return "com.pos.nextgenpos.entity.User[ id=" + id + "]";
+    public String toString() {
+        return "User{" + "id=" + id + ", username=" + username + ", password=" + password + ", position=" + position + '}';
     }
+
 }

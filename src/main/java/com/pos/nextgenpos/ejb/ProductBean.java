@@ -69,10 +69,10 @@ public class ProductBean {
 
     public ProductDetails findById(Integer productId) {
         Product product = em.find(Product.class, productId);
-        return new ProductDetails(product.getId(), product.getPrice(), product.getName(),product.getQuantity());
+        return new ProductDetails(product.getId(), product.getPrice(), product.getName(), product.getQuantity());
 
     }
-    
+
     public Collection<String> findUsernames(Collection<Integer> userIds) {
         LOG.info("findUsernames");
         List<String> usernames = (List<String>) em.createQuery("SELECT p.name FROM Product p WHERE p.id IN ?1").setParameter(1, userIds).getResultList();
@@ -105,6 +105,5 @@ public class ProductBean {
             em.remove(product);
         }
     }
-
 
 }

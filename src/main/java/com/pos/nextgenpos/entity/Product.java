@@ -6,12 +6,9 @@ package com.pos.nextgenpos.entity;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -20,46 +17,40 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "PRODUCTS")
-public class Product implements Serializable{
+public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private String name;
-    
     private Double price;
 
-    public Product(Integer id, String name, Double price) {
+    private String name;
+
+    private Integer quantity;
+
+    public Product(Integer id, Double price, String name, Integer quantity) {
         this.id = id;
-        this.name = name;
         this.price = price;
+        this.name = name;
+        this.quantity = quantity;
     }
-    
-    public static long getSerialVersionUID(){
+
+    public static long getSerialVersionUID() {
         return serialVersionUID;
     }
 
     public Product() {
     }
-    
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_KEY")
-    private User user;
 
     public Integer getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Double getPrice() {
@@ -70,20 +61,25 @@ public class Product implements Serializable{
         this.price = price;
     }
 
-    public User getUser() {
-        return user;
+    public String getName() {
+        return name;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public Integer getQuantity() {
+        return quantity;
     }
-    
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
     @Override
     public String toString() {
-        return "com.pos.nextgenpos.entity.Product[ id=" + id + " ]";
+        return "Product{" + "id=" + id + ", price=" + price + ", name=" + name + ", quantity=" + quantity + '}';
     }
+
 }

@@ -25,7 +25,7 @@ public class UserBean {
     private static final Logger LOG = Logger.getLogger(UserBean.class.getName());
     @PersistenceContext
     private EntityManager em;
-    
+
     public void createUser(String username, String email, String passwordSha256, String position) {
         User user = new User();
         user.setUsername(username);

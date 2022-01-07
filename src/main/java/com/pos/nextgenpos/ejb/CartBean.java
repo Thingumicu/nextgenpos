@@ -24,6 +24,5 @@ public class CartBean {
     public void setProductIds(Set<Integer> productIds) {
         this.productIds = productIds;
     }
-    
-    
+
 }

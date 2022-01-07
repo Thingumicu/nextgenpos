@@ -9,7 +9,7 @@ package com.pos.nextgenpos.common;
  * @author radvo
  */
 public class UserDetails {
-    
+
     private Integer id;
     private String username;
     private String position;
@@ -31,6 +31,5 @@ public class UserDetails {
     public String getPosition() {
         return position;
     }
-    
-    
+
 }

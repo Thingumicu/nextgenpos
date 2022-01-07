@@ -4,11 +4,10 @@
  */
 package com.pos.nextgenpos.servlet.product;
 
-import com.pos.nextgenpos.common.ProductDetails;
 import com.pos.nextgenpos.ejb.ProductBean;
+import com.pos.nextgenpos.ejb.UserBean;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.PrintWriter;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,41 +19,34 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author radvo
  */
-@WebServlet(name = "Products", urlPatterns = {"/Products"})
-public class Products extends HttpServlet {
+@WebServlet(name = "AddProduct", urlPatterns = {"/AddProduct"})
+public class AddProduct extends HttpServlet {
 
     @Inject
-    private ProductBean productBean;
+    ProductBean productBean;
+    @Inject
+    UserBean userBean;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("activePage", "Products");
-
-        List<ProductDetails> products = productBean.getAllProducts();
-        request.setAttribute("products", products);
-        request.getRequestDispatcher("/WEB-INF/pages/products.jsp").forward(request, response);
-
+        request.getRequestDispatcher("/WEB-INF/pages/addProduct.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String[] productIdsAsString = request.getParameterValues("product_ids");
-        if (productIdsAsString != null) {
-            List<Integer> productIds = new ArrayList<>();
-            for (String productIdAsString : productIdsAsString) {
-                productIds.add(Integer.parseInt(productIdAsString));
-            }
-            productBean.deleteProductsByIds(productIds);
-        }
-        response.sendRedirect(request.getContextPath() + "/Products");
+        String description = request.getParameter("description");
+        Double price = Double.parseDouble(request.getParameter("price"));
+        Integer quantity = Integer.parseInt(request.getParameter("quantity"));
 
+        productBean.createProduct(description, price, quantity);
+        response.sendRedirect(request.getContextPath() + "/Products");
     }
 
     @Override
     public String getServletInfo() {
-        return "Products v1.0";
+        return "Short description";
     }
 
 }
