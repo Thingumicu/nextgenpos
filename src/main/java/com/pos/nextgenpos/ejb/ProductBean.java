@@ -32,8 +32,8 @@ public class ProductBean {
         try {
             List<Product> products = (List<Product>) em.createQuery("SELECT p FROM Product p").getResultList();
             return copyProductsToDetails(products);
-        } catch (Exception e) {
-            throw new EJBException(e);
+        } catch (Exception ex) {
+            throw new EJBException(ex);
         }
     }
 
@@ -42,8 +42,9 @@ public class ProductBean {
         for (Product product : products) {
             ProductDetails productDetails = new ProductDetails(
                     product.getId(),
+                    product.getPrice(),
                     product.getName(),
-                    product.getPrice()
+                    product.getQuantity()
             );
 
             detailsList.add(productDetails);
@@ -51,26 +52,50 @@ public class ProductBean {
         return detailsList;
     }
 
-    public void createProduct(Integer id, String name, Double price) {
-        Product product = new Product();
-        product.setId(id);
-        product.setPrice(price);
-        product.setName(name);
-        em.persist(product);
+    public List<ProductDetails> addToCart(Collection<Integer> ids, Integer qt) {
+        LOG.info("addToCartByIds");
+        List<ProductDetails> shoppingCartList = new ArrayList<>();
+        for (Integer id : ids) {
+            Product product = em.find(Product.class, id);
+            ProductDetails productDetails = new ProductDetails(
+                    product.getId(),
+                    product.getPrice(),
+                    product.getName(),
+                    qt);
+            shoppingCartList.add(productDetails);
+        }
+        return shoppingCartList;
     }
 
     public ProductDetails findById(Integer productId) {
         Product product = em.find(Product.class, productId);
-        return new ProductDetails(product.getId(), product.getName(), product.getPrice());
+        return new ProductDetails(product.getId(), product.getPrice(), product.getName(),product.getQuantity());
 
     }
+    
+    public Collection<String> findUsernames(Collection<Integer> userIds) {
+        LOG.info("findUsernames");
+        List<String> usernames = (List<String>) em.createQuery("SELECT p.name FROM Product p WHERE p.id IN ?1").setParameter(1, userIds).getResultList();
+        return usernames;
+    }
 
-    public void updateProduct(Integer id, String name, Double price) {
-
-        LOG.info("updateProduct");
-        Product product = em.find(Product.class, id);
+    public void createProduct(String name, Double price, Integer quantity) {
+        LOG.info("createProduct");
+        Product product = new Product();
         product.setName(name);
         product.setPrice(price);
+        product.setQuantity(quantity);
+        em.persist(product);
+    }
+
+    public void updateProduct(Integer productId, String name, Double price, Integer quantity) {
+
+        LOG.info("updateProduct");
+        Product product = em.find(Product.class, productId);
+        product.setName(name);
+        product.setPrice(price);
+        product.setQuantity(quantity);
+
     }
 
     public void deleteProductsByIds(Collection<Integer> ids) {
@@ -80,4 +105,6 @@ public class ProductBean {
             em.remove(product);
         }
     }
+
+
 }

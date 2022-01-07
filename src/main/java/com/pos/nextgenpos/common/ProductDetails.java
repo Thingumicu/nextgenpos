@@ -4,6 +4,8 @@
  */
 package com.pos.nextgenpos.common;
 
+import java.util.Objects;
+
 /**
  *
  * @author radvo
@@ -11,15 +13,15 @@ package com.pos.nextgenpos.common;
 public class ProductDetails {
     
     private Integer id;
-    
-    private String name;
-    
     private Double price;
+    private String name;
+    private Integer quantity;
 
-    public ProductDetails(Integer id, String name, Double price) {
+    public ProductDetails(Integer id, Double price, String name, Integer quantity) {
         this.id = id;
-        this.name = name;
         this.price = price;
+        this.name = name;
+        this.quantity = quantity;
     }
 
     public Integer getId() {
@@ -30,6 +32,14 @@ public class ProductDetails {
         this.id = id;
     }
 
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
     public String getName() {
         return name;
     }
@@ -38,13 +48,41 @@ public class ProductDetails {
         this.name = name;
     }
 
-    public Double getPrice() {
-        return price;
+    public Integer getQuantity() {
+        return quantity;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if(!(object instanceof ProductDetails)){
+            return false;
+        }
+        ProductDetails other = (ProductDetails) object;
+        if((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))){
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductDetails{" + "id=" + id + '}';
+    }
+    
+    
+
+    
     
     
 }
